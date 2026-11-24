@@ -9,6 +9,9 @@ llama-swap background service configuration
 **opencode-config.jsonc**
 opencode configuration for remote machines utilizing local llama-swap server
 
+## Hardware
+This setup is tested and running on M4 Pro 24GB. YMMV with other hardware or configurations.
+
 ## Replication
 
 1. Install llama.cpp and llama-swap. For this setup, homebrew was used on an M4 Pro Mac Mini.
