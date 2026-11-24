@@ -1,13 +1,14 @@
+# llama config
+
 ## Outline
 
-**llama-swap-config.yaml**
-llama-swap model configuration
-
-**local.llama-swap.plist**
-llama-swap background service configuration
-
-**opencode-config.jsonc**
-opencode configuration for remote machines utilizing local llama-swap server
+| File | Description |
+| ---- | ----------- |
+| llama-swap-config.yaml | llama-swap model configuration |
+| local.llama-swap.plist | llama-swap background service configuration |
+| opencode-config.jsonc | opencode configuration for remote machines utilizing local llama-swap server. allows for starting cyclical development loop or running each step in the loop independently |
+| agent-loop.sh | executable for issuing a non-TUI cyclical development loop. review -> code -> QA |
+| AGENTS.md | outline for subagents spawned from agent loop |
 
 ## Hardware
 This setup is tested and running on M4 Pro 24GB. YMMV with other hardware or configurations.
