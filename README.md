@@ -34,6 +34,7 @@ This setup is tested and running on M4 Pro 24GB. YMMV with other hardware or con
 llama-swap is utilized to allow for complex tasks within the constraints of the 24gb memory. Swapping roles are outlined below:
 
 | Role | Alias | Model | Notes |
+| ---- | ----- | ----- | ----- |
 | Investigation | scout | Qwen3.5 9B (Q8) | ~~~ |
 | QA/Planning | reviewer | gpt-oss-20b | ~~~ |
 | Implementation | coder | Qwen3.8 27B (UD-Q4_K_M) | ~~~ |
