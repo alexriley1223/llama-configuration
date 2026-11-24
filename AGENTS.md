@@ -17,3 +17,4 @@ Each role reads the previous role's file instead of relying on chat history.
 - `investigate` (scout model): read-only; produces PLAN.md.
 - `build` (coder model): implements PLAN.md, fixes QA.md issues, never pushes.
 - `qa` (reviewer model): read-only except `.agent/`; runs tests; writes QA.md.
+- `quick` (reviewer model): read-only Q&A via /ask and /check; never writes files, never part of the .agent/ loop.

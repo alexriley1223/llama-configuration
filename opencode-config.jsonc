@@ -109,6 +109,26 @@
     },
     "explore": {
       "model": "local/scout"
+    },
+    "quick": {
+      "description": "Quick, read-only coding Q&A and sanity checks. Never edits files, never touches .agent/.",
+      "mode": "all",
+      "model": "local/reviewer",
+      "temperature": 0.3,
+      "prompt": "You are a concise coding helper. Answer the question first, in a few sentences, then show the smallest useful snippet. If a file or snippet is provided, base your answer on it. For Laravel/PHP, verify method names and signatures by grepping vendor/ (rg) instead of recalling them; if you cannot verify an API, say so plainly rather than guessing. Read at most ~300 lines per file and at most 3 files unless told otherwise. Never modify files and never run tests or builds. For sanity checks, reply with: Verdict (one line), Issues (ranked, file:line, why it matters), Suggested fixes (short snippets).",
+      "permission": {
+        "edit": "deny",
+        "webfetch": "deny",
+        "bash": {
+          "*": "deny",
+          "rg *": "allow",
+          "grep *": "allow",
+          "ls*": "allow",
+          "git status*": "allow",
+          "git diff*": "allow",
+          "git log*": "allow"
+        }
+      }
     }
   },
   "command": {
@@ -131,6 +151,18 @@
       "description": "Review the change against the plan and write .agent/QA.md (reviewer model)",
       "agent": "qa",
       "template": "Review the current change against .agent/PLAN.md, run the relevant tests, and write .agent/QA.md. $ARGUMENTS"
+    },
+    "ask": {
+      "description": "Quick coding question. Paste a snippet or reference a file with @path.",
+      "agent": "quick",
+      "subtask": true,
+      "template": "$ARGUMENTS"
+    },
+    "check": {
+      "description": "Sanity check: am I doing this correctly? Give a file (@path) or snippet plus what you are unsure about.",
+      "agent": "quick",
+      "subtask": true,
+      "template": "Sanity-check the following. Read the referenced file(s) and, only if needed, one or two closely related files (callers, the route/model/test it touches). Do not modify anything.\n\n$ARGUMENTS"
     }
   }
 }
