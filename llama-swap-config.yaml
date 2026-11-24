@@ -1,23 +1,46 @@
 healthCheckTimeout: 600
 
+macros:
+    llama: >
+        /opt/homebrew/bin/llama-server --port ${PORT}
+        --jinja -ngl 99 -fa on -np 1 --cache-reuse 256
+
 models:
-    gpt-oss-20b:
-        aliases:
-            - default
-            - coding-local
-
-        ttl: 0
-
+    # Light Model
+    # Exploration, summarising, etc. (generally read-only)
+    scout:
+        aliases: [investigate, explore-local]
+        ttl: 900
         cmd: |
-            /opt/homebrew/bin/llama-server --port ${PORT}
-            -hf ggml-org/gpt-oss-20b-GGUF
-            --jinja
-            -ngl 99
-            -fa on
-            -np 1
-            -c 32768
-            -b 2048
-            -ub 2048
-            --temp 1.0
-            --top-p 1.0
-            --chat-template-kwargs '{"reasoning_effort":"medium"}'
+          ${llama}
+          -hf unsloth/Qwen3.5-9B-GGUF:Q8_0
+          -c 65536
+          -b 2048 -ub 1024
+          --temp 0.7 --top-p 0.8 --top-k 20 --min-p 0
+          --chat-template-kwargs '{"enable_thinking":false}'
+
+    # Mid Model
+    # QA, Review, Planning, etc.
+    reviewer:
+        aliases: [default, qa, plan-local, gpt-oss-20b]
+        ttl: 900
+        cmd: |
+          ${llama}
+          -hf ggml-org/gpt-oss-20b-GGUF
+          -c 65536
+          -b 2048 -ub 2048
+          --temp 1.0 --top-p 1.0
+          --chat-template-kwargs '{"reasoning_effort":"medium"}'
+
+    # Heavy Model
+    # Implementation
+    coder:
+        aliases: [coding-local, build-local]
+        ttl: 900
+        cmd: |
+          ${llama}
+          -hf unsloth/Qwen3.8-27B-GGUF:UD-Q4_K_M
+          -c 32768
+          -ctk q8_0 -ctv q8_0
+          -b 1024 -ub 512
+          --temp 0.6 --top-p 0.95 --top-k 20 --min-p 0
