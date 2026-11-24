@@ -1,0 +1,18 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "local/gpt-oss-20b",
+  "providers": {
+    "local": {
+      "name": "llama-swap (local)",
+      "package": "@opencode/ai/providers/openai-compatible",
+      "settings": { "baseURL": "http://{local_or_remote_ip}:{llama-swap-port}/v1" },
+      "models": {
+        "gpt-oss-20b": {
+          "name": "gpt-oss 20B",
+          "capabilities": { "tools": true, "input": ["text"], "output": ["text"] },
+          "limit": { "context": 65536, "output": 8192 }
+        }
+      }
+    }
+  }
+}

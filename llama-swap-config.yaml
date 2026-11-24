@@ -1,0 +1,23 @@
+healthCheckTimeout: 600
+
+models:
+    gpt-oss-20b:
+        aliases:
+            - default
+            - coding-local
+
+        ttl: 0
+
+        cmd: |
+            /opt/homebrew/bin/llama-server --port ${PORT}
+            -hf ggml-org/gpt-oss-20b-GGUF
+            --jinja
+            -ngl 99
+            -fa on
+            -np 1
+            -c 32768
+            -b 2048
+            -ub 2048
+            --temp 1.0
+            --top-p 1.0
+            --chat-template-kwargs '{"reasoning_effort":"medium"}'

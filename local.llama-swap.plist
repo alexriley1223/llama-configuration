@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>local.llama-swap</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/opt/homebrew/bin/llama-swap</string>
+    <string>--config</string>
+    <string>/path/to/llama-swap/config/llama-swap/config.yaml</string>
+    <string>--listen</string>
+    <string>0.0.0.0:{LISTEN_PORT}</string> <!-- default:8081 -->
+  </array>
+  <key>EnvironmentVariables</key>
+  <dict><key>PATH</key><string>/opt/homebrew/bin:/usr/bin:/bin</string></dict>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><true/>
+  <key>StandardOutPath</key><string>/tmp/llama-swap.log</string>
+  <key>StandardErrorPath</key><string>/tmp/llama-swap.log</string>
+</dict>
+</plist>
